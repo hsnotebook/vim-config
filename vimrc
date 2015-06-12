@@ -11,6 +11,8 @@ set guioptions-=T
 set guioptions-=m
 set guioptions-=l
 set guioptions-=L
+set guioptions-=r
+set guioptions-=R
 
 """""Turn off cursor blinking in normal mode
 set gcr=n:blinkon0
