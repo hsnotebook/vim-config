@@ -151,10 +151,6 @@ set showmatch
 " how many tenths of a second to blink when matching brackets
 set mat=2
 
-""""""""""""""""""
-" source the .vimrc when configuration changes
-autocmd BufWritePost $MYVIMRC so $MYVIMRC
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""'
 "This is the configuration of the plugins
