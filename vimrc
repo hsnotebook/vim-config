@@ -11,6 +11,8 @@ set guioptions-=T
 set guioptions-=m
 set guioptions-=l
 set guioptions-=L
+set guioptions-=r
+set guioptions-=R
 
 """""Turn off cursor blinking in normal mode
 set gcr=n:blinkon0
@@ -192,8 +194,11 @@ Plugin 'dkprice/vim-easygrep'
 au BufRead,BufNewFile *.md set filetype=markdown
 
 """""ultisnips"""
-"Plugin 'SirVer/ultisnips'
-"let g:UltiSnipsEditSplit="vertical"
+Plugin 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
 """"git"""
 Plugin 'tpope/vim-fugitive'
