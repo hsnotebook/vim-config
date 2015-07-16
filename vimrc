@@ -43,8 +43,7 @@ set fileencodings=utf-8,ucs-bom,cp936
 
 """""""""""""""""""""""""
 " All colorscheme are in /usr/share/vim/vimxx/colors
-set background=dark
-colorscheme solarized
+colorscheme desert
 
 """""""""""""""""""""""
 " Syntax highlighting
@@ -204,9 +203,6 @@ Plugin 'mattn/emmet-vim'
 
 """""auto-pairs"""""
 Plugin 'jiangmiao/auto-pairs'
-
-""""""altercation/vim-colors-solarized"""""""
-Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 
