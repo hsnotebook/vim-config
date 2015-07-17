@@ -164,7 +164,7 @@ else
 	call vundle#begin()
 endif
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 """TAGLIST"""""
 Plugin 'taglist.vim'
