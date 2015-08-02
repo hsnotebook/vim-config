@@ -150,6 +150,10 @@ set showmatch
 " how many tenths of a second to blink when matching brackets
 set mat=2
 
+"Insert the current time
+nnoremap <F5> "=strftime("%Y-%m-%d %X")<CR>P
+inoremap <F5> <C-R>=strftime("%Y-%m-%d %X")<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""'
 "This is the configuration of the plugins
@@ -164,7 +168,7 @@ else
 	call vundle#begin()
 endif
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 """TAGLIST"""""
 Plugin 'taglist.vim'
