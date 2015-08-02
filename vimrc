@@ -137,11 +137,11 @@ set statusline=%F%m%r%w\ [POS+%04l,%04v]\ [%p%%]\ [LEN=%L]
 
 """"""""""""""
 " Key mapping for browsering through opened buffers.
-nnoremap <C-k> :bp<CR>
-nnoremap <C-j> :bn<CR>
+"nnoremap <C-k> :bp<CR>
+"nnoremap <C-j> :bn<CR>
 " Key mapping for browsering through tabs
-nnoremap <C-h> :tabp<CR>
-nnoremap <C-l> :tabn<CR>
+"nnoremap <C-h> :tabp<CR>
+"nnoremap <C-l> :tabn<CR>
 
 
 """"""""""""""""""""
@@ -190,6 +190,7 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 """""ultisnips"""
 Plugin 'SirVer/ultisnips'
+let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
