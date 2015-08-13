@@ -194,11 +194,15 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 """""ultisnips"""
 Plugin 'SirVer/ultisnips'
-let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
+
+""""""YCM"""""""
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previouse_completion = ['<c-p>', '<Up>']
 
 """"git"""
 Plugin 'tpope/vim-fugitive'
