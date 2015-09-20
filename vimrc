@@ -90,6 +90,14 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
+" Config for dictionary {{{1
+au FileType css setlocal dict+=~/.vim/dict/css.dict
+au FileType java setlocal dict+=~/.vim/dict/java.dict
+au FileType javascript setlocal dict+=~/.vim/dict/javascript.dict
+au FileType html setlocal dict+=~/.vim/dict/javascript.dict
+au FileType html setlocal dict+=~/.vim/dict/css.dict
+" }}}
+
 " Config for plugins {{{1
 
 filetype off
