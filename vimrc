@@ -1,32 +1,8 @@
+" vim: foldmethod=marker
 " Filename: .vimrc
 " Made by hs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""'
-
-"""""""""""""""""""
-"" To get help, type :help <keyword>
-""""""""""""
-
-"""""remove gui toolbar, menubar and scroll bar
-set guioptions-=T
-set guioptions-=m
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-
-"""""Turn off cursor blinking in normal mode
-set gcr=n:blinkon0
-
-
-"""""""""""""""""""""""
-" Make vim behave in a more useful way. 
 set nocompatible
-
-""""""""""""""""""
-" Set global leader
-let mapleader="\\"
-" Set local leader
-let maplocalleader="\\"
 
 """""encoding"""""
 if has("win32")
@@ -34,53 +10,51 @@ if has("win32")
 else
 	set encoding=utf-8
 endif
-set fenc=utf-8
-set fileencodings=utf-8,ucs-bom,cp936
 
-""""""""""""""""""
-" plugin configuration
-"source ./plugin_config.vim
-
-"""""""""""""""""""""""""
-" All colorscheme are in /usr/share/vim/vimxx/colors
-colorscheme desert
-
-"""""""""""""""""""""""
-" Syntax highlighting
-syntax on
-
-"""""""""""""""""""""""
-" Mark color characters after a certain column
-" \%> match after column with the number right after this
-" 80 the column number
-" v tell that it should work on virtual columns only
-" .\+ match one or more of any character
-" match ErrorMsg /\%>80v.\+/
-
-""""""""""""""""""""""""
-" There are four main ways to use tabs in VIM.
-" Use :h tabstop to see more information.
-set tabstop=4
-set shiftwidth=4
-set noexpandtab
-"set list
-set listchars=tab:\|\ ,nbsp:%,trail:-
-"match StatusLineNC /^\t/
-
-""""""""""""""""""""""
-" Lines longer than the textwith whill wrap and
-" displying continues on the next line.
-set wrap
-set formatoptions+=w
-set tw=75
-
-""""""""""""""""""""
-" Show the number
 set number
 set relativenumber
 
-""""""""""""""""""
-" About how to search
+set background=dark
+colorscheme solarized
+match ErrorMsg /[ \t]\+$/
+
+set showcmd
+set autowrite
+set autoread
+
+set showmatch
+set mat=2
+
+filetype on
+syntax on
+filetype plugin on
+filetype indent on
+
+" GUI Options {{{1
+set guioptions-=T
+set guioptions-=m
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+set gcr=n:blinkon0
+
+" Leader config {{{1
+let mapleader="\\"
+let maplocalleader="\\"
+
+" Statusline {{{1
+set laststatus=2
+set statusline=%F%m%r%w\ [POS+%04l,%04v]\ [%p%%]\ [LEN=%L]
+
+" Config for tabstop {{{1
+set tabstop=4
+set shiftwidth=4
+set noexpandtab
+autocmd FileType xml,html setlocal tabstop=2 | setlocal shiftwidth=2
+
+
+" About how to search {{{1
 set hlsearch
 set incsearch
 set ignorecase
@@ -101,62 +75,22 @@ vnoremap <silent> # :<C-U>
     \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
     \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+" :Qargs {{{1
+" The custom :Qargs command sets the arglist to contain each of the files
+" referenced by the quickfix list.
+" Copyed from vimcasts.org,
+" url: http://vimcasts.org/episodes/project-wide-find-and-replace/
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
 
-"""""""""""""""""
-" Show command in the last line of the screen
-set showcmd
-
-""""""""""""""""
-" Automatically save before commands like :next and :make
-set autowrite
-" When a file has been detected to have been changed outside of Vim and
-" it has not been changed inside of Vim, automatically read it again.
-set autoread
-
-""""""""""""""""""""
-" Enable file type detection
-" More help :h filetype
-filetype on
-" Enable loading the plugin files for specific file types.
-filetype plugin on
-" Enable loading the indent file for specific file types.
-filetype indent on
-
-
-""""""""""""""""""""
-" Save and quit
-nmap <leader>q :q<cr>
-nmap <leader>w :w<cr>
-nmap <leader>wq :wq<cr>
-
-""""""""""""""""""""""""""""""
-" Statusline
-""""""""""""""""""""""""""""""
-set laststatus=2
-set statusline=%F%m%r%w\ [POS+%04l,%04v]\ [%p%%]\ [LEN=%L]
-
-""""""""""""""
-" Key mapping for browsering through opened buffers.
-"nnoremap <C-k> :bp<CR>
-"nnoremap <C-j> :bn<CR>
-" Key mapping for browsering through tabs
-"nnoremap <C-h> :tabp<CR>
-"nnoremap <C-l> :tabn<CR>
-
-
-""""""""""""""""""""
-" show matching brackets when text indicator is over them
-set showmatch
-" how many tenths of a second to blink when matching brackets
-set mat=2
-
-"Insert the current time
-nnoremap <F5> "=strftime("%Y-%m-%d %X")<CR>P
-inoremap <F5> <C-R>=strftime("%Y-%m-%d %X")<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""'
-"This is the configuration of the plugins
+" Config for plugins {{{1
 
 filetype off
 if has("win32")
@@ -170,48 +104,79 @@ endif
 
 Plugin 'gmarik/Vundle.vim'
 
-"""TAGLIST"""""
+" Taglist.vim {{{2
 Plugin 'taglist.vim'
 let Tlist_Show_One_File=1
 nnoremap <leader>tl :TlistToggle<cr>
 let Tlist_WinWidth=30
 let Tlist_Use_Right_Window = 1
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+"}}}
 
-""""""NERDTree"""""""""""
 Plugin 'scrooloose/nerdtree'
 nnoremap <leader>fe :NERDTreeToggle<cr>
 
-"""""""ctrlp"""""
+" ctrlp {{{2
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_regexp = 1
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/](\.(git|hg|svn)|target)$',
+	\ 'file': '\v\.(png|so|dll)$',
+	\ }
+" 2}}}
 
-""""""EasyGrep"""
 Plugin 'dkprice/vim-easygrep'
 
-"""""markdown""""
-au BufRead,BufNewFile *.md set filetype=markdown
-
-"""""ultisnips"""
 Plugin 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
-""""""YCM"""""""
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
-let g:ycm_key_list_previouse_completion = ['<c-p>', '<Up>']
-
-""""git"""
 Plugin 'tpope/vim-fugitive'
 
-"""""html"""
 Plugin 'mattn/emmet-vim'
 
-"""""auto-pairs"""""
 Plugin 'jiangmiao/auto-pairs'
+
+" Plugin 'vimwiki/vimwiki'
+" nmap <leader>tt <Plug>VimwikiToggleListItem
+" let g:vimwiki_list = [
+" 	\ {'path': '~/vimwiki/mybatis',
+" 	\	'syntax': 'markdown', 'ext': '.md'},
+" 	\ {'path': '~/vimwiki/new-oa',
+" 	\	'syntax': 'markdown', 'ext': '.md'}
+" 	\ ]
+
+Plugin 'godlygeek/tabular'
+
+Plugin 'nelstrom/vim-markdown-folding'
+let g:markdown_fold_style='nested'
+
+Plugin 'plasticboy/vim-markdown'
+" Use vim-markdown-folding to fold
+let g:vim_markdown_folding_disabled=1
+
+Plugin 'hotoo/pangu.vim'
+" autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
+
+Plugin 'mattn/calendar-vim'
+
+Plugin 'vim-voom/VOom'
+
+Plugin 'fencview.vim'
+
+Plugin 'scrooloose/nerdcommenter'
+
+Plugin 'tpope/vim-surround'
+
+Plugin 'tpope/vim-repeat'
+
+Plugin 'DrawIt'
+
+Plugin 'altercation/vim-colors-solarized'
+
+Plugin 'vim-scripts/XML-Folding'
 
 call vundle#end()
 
