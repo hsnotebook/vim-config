@@ -149,14 +149,6 @@ Plugin 'mattn/emmet-vim'
 
 Plugin 'jiangmiao/auto-pairs'
 
-" Plugin 'vimwiki/vimwiki'
-" nmap <leader>tt <Plug>VimwikiToggleListItem
-" let g:vimwiki_list = [
-" 	\ {'path': '~/vimwiki/mybatis',
-" 	\	'syntax': 'markdown', 'ext': '.md'},
-" 	\ {'path': '~/vimwiki/new-oa',
-" 	\	'syntax': 'markdown', 'ext': '.md'}
-" 	\ ]
 
 Plugin 'godlygeek/tabular'
 
@@ -164,12 +156,8 @@ au BufRead,BufNewFile *.{md,mkd,markdown} set ft=markdown
 Plugin 'nelstrom/vim-markdown-folding'
 let g:markdown_fold_style='nested'
 
-" Plugin 'plasticboy/vim-markdown'
-" " Use vim-markdown-folding to fold
-" let g:vim_markdown_folding_disabled=1
-
 Plugin 'hotoo/pangu.vim'
-" autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
+autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
 
 Plugin 'mattn/calendar-vim'
 
