@@ -30,6 +30,8 @@ syntax on
 filetype plugin on
 filetype indent on
 
+nmap gV '[v']
+
 " GUI Options {{{1
 set guioptions-=T
 set guioptions-=m
@@ -110,7 +112,7 @@ else
 	call vundle#begin()
 endif
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " Taglist.vim {{{2
 Plugin 'taglist.vim'
@@ -158,12 +160,13 @@ Plugin 'jiangmiao/auto-pairs'
 
 Plugin 'godlygeek/tabular'
 
+au BufRead,BufNewFile *.{md,mkd,markdown} set ft=markdown
 Plugin 'nelstrom/vim-markdown-folding'
 let g:markdown_fold_style='nested'
 
-Plugin 'plasticboy/vim-markdown'
-" Use vim-markdown-folding to fold
-let g:vim_markdown_folding_disabled=1
+" Plugin 'plasticboy/vim-markdown'
+" " Use vim-markdown-folding to fold
+" let g:vim_markdown_folding_disabled=1
 
 Plugin 'hotoo/pangu.vim'
 " autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
