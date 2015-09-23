@@ -32,6 +32,13 @@ filetype indent on
 
 nmap gV '[v']
 
+" Window Navigation {{{1
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+" }}}
+
 " GUI Options {{{1
 set guioptions-=T
 set guioptions-=m
@@ -148,7 +155,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'mattn/emmet-vim'
 
 Plugin 'jiangmiao/auto-pairs'
-
 
 Plugin 'godlygeek/tabular'
 
