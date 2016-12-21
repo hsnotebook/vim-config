@@ -1,0 +1,179 @@
+##################################
+# global function
+global !p
+import os
+import string
+def package():
+	filepath = os.path.dirname(path)
+	try:
+		i = 1
+		pathbase = 'src' + os.sep + 'main' + os.sep + 'java' + os.sep + ''
+		index = filepath.index(pathbase)
+		length = len(pathbase)
+	except ValueError as e:
+		i = 3
+		pathbase = 'src' + os.sep + 'test' + os.sep + 'java' + os.sep + ''
+		index = filepath.index(pathbase)
+		length = len(pathbase)
+	package = filepath[index+length:].replace(os.sep, '.')
+	return package
+endglobal
+
+##################################
+# normal snip
+snippet while
+while (${1:condition}) {
+	${2://code...}
+}
+endsnippet
+
+snippet if
+if (${1:condition}) {
+	${2://code...}
+}
+endsnippet
+
+snippet foreach
+for (${1:Object} ${2:obj} : ${3:objs}) {
+	${4:// code...}
+}
+endsnippet
+
+snippet for
+for (${1:int i = 0}; ${2:i < 100} : ${3:i++}) {
+	${4:// code...}
+}
+endsnippet
+
+snippet syso "System.out.println" b
+System.out.println(${1:thing});
+endsnippet
+
+##################################
+# class
+snippet class "normar class" b
+package `!p snip.rv = package()`;
+
+public class `!v expand('%:t:r')` {
+
+	${1:// code}
+
+}
+endsnippet
+
+snippet testboot "spring boot test" b
+package `!p snip.rv = package()`;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+public class `!v expand('%:t:r')` {
+
+	${1:// code}
+
+}
+endsnippet
+
+snippet interface "normar class" b
+package `!p snip.rv = package()`;
+
+public interface `!v expand('%:t:r')` {
+
+	${1:// code}
+
+}
+endsnippet
+
+snippet controller "controller" b
+package `!p snip.rv = package()`;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("${1:url}")
+public class `!v expand('%:t:r')` {
+
+	${2:// code}
+
+}
+endsnippet
+
+snippet service "service" b
+package `!p snip.rv = package()`;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class `!v expand('%:t:r')` {
+
+	${2:// code}
+
+}
+endsnippet
+
+snippet entity "entity" b
+package `!p snip.rv = package()`;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "${1:name}")
+public class `!v expand('%:t:r')` {
+
+	${2:// code}
+
+}
+endsnippet
+
+snippet repository "jpa repository" b
+package `!p snip.rv = package()`;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface `!p snip.rv = fn.replace(".java","")` extends JpaRepository<`!p snip.rv = fn.replace("Repository.java", "")`, ${1:T}> {
+
+}
+endsnippet
+
+################################
+# method
+snippet test "inset @Test method" b
+@Test
+public void test${1:Something}() {
+	${2:// code}
+}
+endsnippet
+
+##########################
+# spring mvc
+snippet au "autowired" b
+@Autowired
+private ${1:Type} ${2:attr};
+endsnippet
+
+snippet co "column" b
+@Column(name = "${1:name}")
+private ${2:Type} ${3:attr};
+endsnippet
+
+snippet rm "requestmapping" b
+@RequestMapping(${1:url})
+endsnippet
+
+snippet rq "request param" w
+@RequestParam
+endsnippet
+
+snippet rb "response body" b
+@ResponseBody
+endsnippet
+
+snippet webmethod "web method" b
+@RequestMapping(${1:"url"})${2}
+public ${3:String} ${4:method}(${5:param}) {
+	${6:// code}
+}
+endsnippet

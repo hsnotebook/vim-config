@@ -1,0 +1,43 @@
+snippet ready
+$(document).ready(function() {
+	${1://code..}
+});
+endsnippet
+
+snippet define "define a module" b
+define(${1:dependencies}`!p snip.rv = ', ' if len(t[1]) > 1 else ''`function(){
+	${3://code}
+});
+endsnippet
+
+snippet for
+for (var i=0; i<${1:length}; i++) {
+	${2://code}
+}
+endsnippet
+
+snippet if
+if (${1:condition}) {
+	${2://code...}
+}
+endsnippet
+
+snippet cl
+console.log(${1:thing});
+endsnippet
+
+snippet require "require function" b
+require(${1:dependencies}`!p snip.rv = ', ' if len(t[1]) > 1 else ''`function($2) {
+
+	$(document).ready(function() {
+		${3://code..}
+	});
+
+});
+endsnippet
+
+snippet func "define function" w
+function($1) {
+	$2
+}
+endsnippet

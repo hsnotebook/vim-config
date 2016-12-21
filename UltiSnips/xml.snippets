@@ -1,0 +1,39 @@
+snippet xml
+<?xml version="1.0" encoding="UTF-8"?>
+endsnippet
+
+snippet pom-struct
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>${1:groupId}</groupId>
+	<version>${2:version}</version>
+	<artifactId>${3:artifactId}</artifactId>
+	<packaging>${4:packaging}</packaging>
+	<name>${5:name}</name>
+	<description>${6:description}</description>
+
+</project>
+endsnippet
+
+snippet blueprint
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+	xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	$0
+
+</blueprint>
+endsnippet
+
+snippet camel
+<camelContext xmlns="http://camel.apache.org/schema/blueprint">
+	<route>
+		$0
+	</route>
+</camelContext>
+endsnippet
