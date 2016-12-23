@@ -33,7 +33,6 @@ set showcmd
 nnoremap <leader>ev :sp $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
-set splitbelow
 set splitright
 
 inoremap <left> <nop>
@@ -50,6 +49,7 @@ augroup xml_html_indent
 augroup END
 
 set incsearch
+set hlsearch
 set ignorecase
 set nowrapscan
 hi Search cterm=NONE ctermfg=black ctermbg=gray
