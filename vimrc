@@ -141,7 +141,7 @@ autocmd BufWritePre COMMIT_EDITMSG call PanGuSpacing()
 nnoremap <leader>gs :Gstatus<cr>
 
 Plug 'hotoo/pangu.vim'
-autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
+" autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
 
 Plug 'tpope/vim-commentary'
 
@@ -149,7 +149,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
 
-Plug 'mattn/emmet-vim' , { 'for': 'xml, html, jsp' }
+Plug 'mattn/emmet-vim' , { 'for': ['xml', 'html', 'jsp'] }
 
 Plug 'christoomey/vim-tmux-navigator'
 
