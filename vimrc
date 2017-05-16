@@ -153,11 +153,17 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
 Plug 'tpope/vim-fugitive'
-autocmd BufWritePre COMMIT_EDITMSG :call PanGuSpacing()
+augroup pangu_commit_msg
+	au!
+	autocmd BufWritePre COMMIT_EDITMSG :call PanGuSpacing()
+augroup END
 nnoremap <leader>gs :Gstatus<cr>
 
 Plug 'hotoo/pangu.vim'
-autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx :call PanGuSpacing()
+augroup pangu_doc
+	au!
+	autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx :call PanGuSpacing()
+augroup END
 
 Plug 'tpope/vim-commentary'
 
