@@ -4,6 +4,21 @@ let mapleader=" "
 
 syntax on
 
+if (has("win32"))
+	set fileencodings=utf-8,gbk
+endif
+
+if (has("gui"))
+	set go-=m
+	set go-=T
+	set go-=r
+	set go-=R
+	set go-=l
+	set go-=L
+	set guifont=Consolas:h15
+	set autoread
+endif
+
 filetype plugin indent on
 
 nnoremap <C-h> <C-w>h
@@ -102,7 +117,7 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
 
   " " ag is fast enough that CtrlP doesn't need to cache
-  " let g:ctrlp_use_caching = 0
+  let g:ctrlp_use_caching = 1
 
   if !exists(":Ag")
     command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
@@ -128,20 +143,21 @@ Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_regexp = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/](\.(git|hg|svn)|target|bin)$',
+	\ 'dir':  '\v[\/]\.(git|hg|svn|target|bin)$',
 	\ 'file': '\v\.(png|so|dll)$',
 	\ }
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:0'
 
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
 Plug 'tpope/vim-fugitive'
-autocmd BufWritePre COMMIT_EDITMSG call PanGuSpacing()
+autocmd BufWritePre COMMIT_EDITMSG :call PanGuSpacing()
 nnoremap <leader>gs :Gstatus<cr>
 
 Plug 'hotoo/pangu.vim'
-" autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
+autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx :call PanGuSpacing()
 
 Plug 'tpope/vim-commentary'
 
@@ -201,6 +217,8 @@ Plug 'aklt/plantuml-syntax'
 let g:plantuml_executable_script="java -jar /home/hs/bin/plantuml.jar -charset UTF-8"
 
 Plug 'vimwiki/vimwiki'
+
+" Plug 'Valloric/YouCompleteMe'
 
 " eclim
 augroup java
