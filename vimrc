@@ -199,7 +199,9 @@ let g:plantuml_executable_script="java -jar /home/hs/bin/plantuml.jar -charset U
 
 Plug 'vimwiki/vimwiki'
 
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " eclim
 augroup java
