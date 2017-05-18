@@ -189,8 +189,8 @@ Plug 'vim-scripts/fcitx.vim'
 set ttimeoutlen=100
 
 Plug 'junegunn/vim-easy-align'
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+xnoremap ga <Plug>(EasyAlign)
+nnoremap ga <Plug>(EasyAlign)
 
 Plug 'gcmt/taboo.vim'
 
