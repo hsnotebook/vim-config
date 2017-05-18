@@ -5,7 +5,8 @@ let mapleader=" "
 syntax on
 
 if (has("win32"))
-	set fileencodings=utf-8,gbk
+	set encoding=utf-8
+	set fileencodings=utf-8
 endif
 
 if (has("gui"))
