@@ -33,9 +33,6 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>wq :wq<cr>
 nnoremap <leader>m :on<cr>
 
-set number
-set relativenumber
-
 set textwidth=80
 
 colorscheme desert
