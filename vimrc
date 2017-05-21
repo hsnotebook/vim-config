@@ -198,6 +198,9 @@ Plug 'aklt/plantuml-syntax'
 let g:plantuml_executable_script="java -jar /home/hs/bin/plantuml.jar -charset UTF-8"
 
 Plug 'vimwiki/vimwiki'
+let g:vimwiki_conceallevel=0
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+			\ 'syntax': 'markdown', 'ext': '.md'}]
 
 Plug 'Valloric/YouCompleteMe'
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
