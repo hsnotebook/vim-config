@@ -71,7 +71,7 @@ nnoremap <esc> :noh<cr><esc>
 set autowrite
 
 set laststatus=2
-set statusline=%F%m%r%w\ %{fugitive#statusline()}\ [POS+%04l,%04v]\ [%p%%]\ [LEN=%L]\ [%{&ff}]
+set statusline=%F%m%r%w\ %{fugitive#statusline()}\ [%l,%v]\ [%{&ff}]\ [%{&ft}]
 
 inoremap <c-u> <esc>viwUea
 
