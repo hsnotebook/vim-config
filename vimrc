@@ -126,13 +126,6 @@ if executable('ag')
   nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 endif
 
-Plug 'taglist.vim', { 'on': 'TlistToggle'}
-let Tlist_Show_One_File=1
-nnoremap <leader>tl :TlistToggle<cr>
-let Tlist_WinWidth=30
-let Tlist_Use_Right_Window = 1
-let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 nnoremap <leader>fe :NERDTreeToggle<cr>
 nnoremap <leader>ff :NERDTreeFind<cr>
