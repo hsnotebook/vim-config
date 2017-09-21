@@ -187,9 +187,12 @@ au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 augroup END
 Plug 'hsnotebook/follow-markdown-links'
 
-Plug 'Valloric/YouCompleteMe'
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+set sessionoptions+=globals
+Plug 'tpope/vim-obsession'
+
+"Plug 'Valloric/YouCompleteMe'
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " eclim
 augroup java
