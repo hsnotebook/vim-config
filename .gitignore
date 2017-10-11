@@ -1,3 +1,7 @@
-*.swp
 bundle/
+plugged/
+.netrwhist
+eclim/
+plugin/
+autoload/
 colors/
