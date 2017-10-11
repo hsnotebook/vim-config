@@ -34,7 +34,7 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>wq :wq<cr>
 nnoremap <leader>m :on<cr>
 
-colorscheme desert
+colorscheme wombat
 
 set showmatch
 set mat=2
