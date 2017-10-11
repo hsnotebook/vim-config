@@ -188,7 +188,8 @@ let wiki.nested_syntaxes = {
 			\ 'vimL': 'vim',
 			\ 'bash': 'bash',
 			\ 'java': 'java',
-			\ 'xml': 'xml'}
+			\ 'xml': 'xml',
+			\ 'perl': 'perl'}
 let g:vimwiki_list = [wiki]
 let g:vimwiki_html_header_numbering = 1
 au Filetype vimwiki setlocal textwidth=80
