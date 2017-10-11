@@ -41,7 +41,7 @@ set mat=2
 
 set showcmd
 
-nnoremap <leader>ev :sp $MYVIMRC<CR>
+nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 set splitright
