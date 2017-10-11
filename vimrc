@@ -34,8 +34,6 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>wq :wq<cr>
 nnoremap <leader>m :on<cr>
 
-set textwidth=80
-
 colorscheme desert
 
 set showmatch
@@ -182,10 +180,19 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'aklt/plantuml-syntax'
 let g:plantuml_executable_script="java -jar /home/hs/bin/plantuml.jar -charset UTF-8"
 
-augroup mdtype
-au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-augroup END
-Plug 'hsnotebook/follow-markdown-links'
+Plug 'vimwiki/vimwiki'
+let wiki = {}
+let wiki.path = '~/vimwiki/'
+let wiki.nested_syntaxes = {
+			\ 'python': 'python',
+			\ 'vimL': 'vim',
+			\ 'bash': 'bash',
+			\ 'java': 'java',
+			\ 'xml': 'xml'}
+let g:vimwiki_list = [wiki]
+let g:vimwiki_html_header_numbering = 1
+au Filetype vimwiki setlocal textwidth=80
+
 
 set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
