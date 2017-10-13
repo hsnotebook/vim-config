@@ -194,6 +194,27 @@ let g:vimwiki_list = [wiki]
 let g:vimwiki_html_header_numbering = 1
 au Filetype vimwiki setlocal textwidth=80
 
+function! VimwikiLinkHandler(link)
+	try
+		echom a:link
+		if matchstr(a:link, '\.\zspdf') ==? 'pdf'
+			let opener = '/usr/bin/zathura'
+			let pageNum = matchstr(a:link, '::\zs\d\+')
+			if pageNum ==? ""
+				return 0
+			endif
+			let file = matchstr(a:link, 'file:\zs.*\ze::')
+			call system(opener.' -P '.pageNum.' '.file.' &')
+			return 1
+		else
+			return 0
+		endif
+	catch
+		echom "This can happen for a variety of reasons ..."
+	endtry
+	return 0
+endfunction
+
 
 set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
