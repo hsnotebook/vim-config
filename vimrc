@@ -174,17 +174,26 @@ let g:vimwiki_list = [wiki]
 let g:vimwiki_html_header_numbering = 1
 au Filetype vimwiki setlocal textwidth=80
 
+" file:xxx::lineNum to unnamed register
+function! VimwikiStoreLink()
+	let @" = 'file:'.expand("%:p").'::'.line('.')
+endfunction
+command! StoreLink :call VimwikiStoreLink()
+
 function! VimwikiLinkHandler(link)
 	try
-		echom a:link
-		if matchstr(a:link, '\.\zspdf') ==? 'pdf'
+		let pageNum = matchstr(a:link, '::\zs\d\+')
+		let file = matchstr(a:link, '^.*:\zs.*\ze::')
+		let fileCmdOutput = system('file '.file)
+		if pageNum ==? ""
+			pageNum = 1
+		endif
+		if matchstr(fileCmdOutput, '\zsPDF\ze') ==? 'PDF'
 			let opener = '/usr/bin/zathura'
-			let pageNum = matchstr(a:link, '::\zs\d\+')
-			if pageNum ==? ""
-				return 0
-			endif
-			let file = matchstr(a:link, 'file:\zs.*\ze::')
 			call system(opener.' -P '.pageNum.' '.file.' &')
+			return 1
+		elseif matchstr(fileCmdOutput, '\zstext\ze') ==? 'text'
+			execute 'edit +'.pageNum.' '.file
 			return 1
 		else
 			return 0
