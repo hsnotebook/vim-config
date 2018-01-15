@@ -84,14 +84,6 @@ augroup clear_trail_white_space
 	au BufWritePre * :call DeleteTrailingWS()
 augroup END
 
-function! IndentAfterPaste()
-	execute 'normal! mz'
-	execute 'normal! p`[v`]='
-	execute "normal! `z"
-endfunction
-
-nnoremap p :call IndentAfterPaste()<cr>
-
 ""search hilight text in visual mode
 vnoremap <silent> * :<C-U>
     \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
@@ -105,17 +97,15 @@ vnoremap <silent> # :<C-U>
     \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
     \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+packadd! matchit
+
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 nnoremap <leader>fe :NERDTreeToggle<cr>
 nnoremap <leader>ff :NERDTreeFind<cr>
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-Plug 'junegunn/fzf.vim'
-nnoremap <c-p><c-f> :Files<cr>
-nnoremap <c-p><c-b> :Buffers<cr>
-nnoremap <c-p><c-u> :Snippets<cr>
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+Plug 'kien/ctrlp.vim'
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/target/*
+let g:ctrlp_clear_cache_on_exit = 0
 
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
@@ -132,7 +122,13 @@ Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
 
-Plug 'mattn/emmet-vim' , { 'for': ['xml', 'html', 'jsp'] }
+Plug 'posva/vim-vue'
+augroup vue_indent
+    au!
+    autocmd FileType vue setlocal expandtab | setlocal tabstop=2 | setlocal shiftwidth=2
+augroup END
+
+Plug 'mattn/emmet-vim' , { 'for': ['xml', 'html', 'jsp', 'js', 'vue'] }
 
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -155,6 +151,8 @@ nnoremap ga <Plug>(EasyAlign)
 
 Plug 'gcmt/taboo.vim'
 
+Plug 'vifm/vifm.vim'
+
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'aklt/plantuml-syntax'
@@ -168,7 +166,9 @@ let wiki.nested_syntaxes = {
 			\ 'vimL': 'vim',
 			\ 'bash': 'bash',
 			\ 'java': 'java',
+			\ 'json': 'json',
 			\ 'xml': 'xml',
+			\ 'plantuml': 'plantuml',
 			\ 'perl': 'perl'}
 let g:vimwiki_list = [wiki]
 let g:vimwiki_html_header_numbering = 1
@@ -204,13 +204,8 @@ function! VimwikiLinkHandler(link)
 	return 0
 endfunction
 
-
 set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
-
-"Plug 'Valloric/YouCompleteMe'
-"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " eclim
 augroup java
@@ -219,5 +214,27 @@ augroup java
 	au FileType java nnoremap <buffer> <leader>i :call eclim#java#correct#Correct()<cr>
 	au FileType java inoremap <buffer> <c-d> <c-x><c-u>
 augroup END
+
+Plug 'brookhong/cscope.vim'
+nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+nnoremap <leader>l :call ToggleLocationList()<CR>
+
+" s: Find this C symbol
+nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+" g: Find this definition
+nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+" d: Find functions called by this function
+nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+" c: Find functions calling this function
+nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+" t: Find this text string
+nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+" e: Find this egrep pattern
+" nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+" f: Find this file
+" nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+" i: Find files #including this file
+nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+
 
 call plug#end()
