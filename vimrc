@@ -158,6 +158,12 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'aklt/plantuml-syntax'
 let g:plantuml_executable_script="java -jar /home/hs/bin/plantuml.jar -charset UTF-8"
 
+augroup plantuml_refresh
+	au!
+	au filetype plantuml nnoremap <f5> :w<cr>:silent make<cr>
+	au filetype plantuml inoremap <f5> <esc>:w<cr>:silent make<cr>
+augroup END
+
 Plug 'vimwiki/vimwiki'
 let wiki = {}
 let wiki.path = '~/vimwiki/'
@@ -235,6 +241,5 @@ nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
 " nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 " i: Find files #including this file
 nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
-
 
 call plug#end()
