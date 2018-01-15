@@ -41,3 +41,22 @@ function($1) {
 	$2
 }
 endsnippet
+
+snippet class "React class" b
+class ${1:name} extends React.Component {
+	render() {
+		return (
+			${2}
+		);
+	}
+}
+endsnippet
+
+snippet vue "a vue variable" b
+var ${1:varName} = new Vue({
+	el: '#${2:id}',
+	data: {
+		${3}
+	}
+});
+endsnippet
