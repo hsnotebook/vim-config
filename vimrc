@@ -128,6 +128,8 @@ augroup vue_indent
     autocmd FileType vue setlocal expandtab | setlocal tabstop=2 | setlocal shiftwidth=2
 augroup END
 
+Plug 'othree/html5.vim'
+
 Plug 'mattn/emmet-vim' , { 'for': ['xml', 'html', 'jsp', 'js', 'vue'] }
 
 Plug 'christoomey/vim-tmux-navigator'
