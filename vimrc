@@ -64,7 +64,6 @@ set hlsearch
 set ignorecase
 set nowrapscan
 hi Search cterm=NONE ctermfg=black ctermbg=gray
-nnoremap <esc> :noh<cr><esc>
 
 set autowrite
 
@@ -98,6 +97,8 @@ vnoremap <silent> # :<C-U>
     \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 packadd! matchit
+
+Plug 'romainl/vim-cool'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 nnoremap <leader>fe :NERDTreeToggle<cr>
