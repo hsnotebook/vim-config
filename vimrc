@@ -169,6 +169,7 @@ augroup END
 Plug 'vimwiki/vimwiki'
 let wiki = {}
 let wiki.path = '~/vimwiki/'
+let wiki.auto_toc=1
 let wiki.nested_syntaxes = {
 			\ 'python': 'python',
 			\ 'vimL': 'vim',
