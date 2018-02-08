@@ -154,8 +154,6 @@ nnoremap ga <Plug>(EasyAlign)
 
 Plug 'gcmt/taboo.vim'
 
-Plug 'vifm/vifm.vim'
-
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'aklt/plantuml-syntax'
