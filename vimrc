@@ -124,9 +124,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 Plug 'posva/vim-vue'
-augroup vue_indent
+augroup web_indent
     au!
     autocmd FileType vue setlocal expandtab | setlocal tabstop=2 | setlocal shiftwidth=2
+    autocmd FileType javascript setlocal expandtab | setlocal tabstop=2 | setlocal shiftwidth=2
 augroup END
 
 Plug 'othree/html5.vim'
