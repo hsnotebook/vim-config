@@ -98,6 +98,11 @@ vnoremap <silent> # :<C-U>
 
 packadd! matchit
 
+" grep setting
+set grepprg=ag\ --nogroup\ --nocolor
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 Plug 'romainl/vim-cool'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -105,7 +110,7 @@ nnoremap <leader>fe :NERDTreeToggle<cr>
 nnoremap <leader>ff :NERDTreeFind<cr>
 
 Plug 'kien/ctrlp.vim'
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/target/*
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/target/*,*/node_modules/*
 let g:ctrlp_clear_cache_on_exit = 0
 
 Plug 'SirVer/ultisnips'
