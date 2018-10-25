@@ -54,9 +54,9 @@ inoremap <down> <nop>
 set tabstop=4
 set shiftwidth=4
 set noexpandtab
-augroup xml_html_indent
+augroup two_tab_indent
 	au!
-	autocmd FileType xml,html setlocal tabstop=2 | setlocal shiftwidth=2
+	autocmd FileType xml,html,json setlocal tabstop=2 | setlocal shiftwidth=2
 augroup END
 
 set incsearch
@@ -114,7 +114,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/target/*,*/node_modules/*
 let g:ctrlp_clear_cache_on_exit = 0
 
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
 Plug 'tpope/vim-fugitive'
@@ -128,16 +128,19 @@ Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
 
+Plug 'tpope/vim-abolish'
+
 Plug 'posva/vim-vue'
-augroup web_indent
+augroup two_spaces_indent
     au!
-    autocmd FileType vue setlocal expandtab | setlocal tabstop=2 | setlocal shiftwidth=2
-    autocmd FileType javascript setlocal expandtab | setlocal tabstop=2 | setlocal shiftwidth=2
+    autocmd FileType scss,vue,javascript,yaml,css setlocal expandtab | setlocal tabstop=2 | setlocal shiftwidth=2
 augroup END
 
 Plug 'othree/html5.vim'
 
 Plug 'mattn/emmet-vim' , { 'for': ['xml', 'html', 'jsp', 'js', 'vue'] }
+
+Plug 'leafgarland/typescript-vim'
 
 Plug 'christoomey/vim-tmux-navigator'
 
