@@ -184,6 +184,10 @@ endsnippet
 
 #######################
 # log
+snippet lg "logger" b
+private static final Logger logger = LoggerFactory.getLogger(`!v expand('%:t:r')`.class);
+endsnippet
+
 snippet ld "logger.debug()" b
 logger.debug("${1:msg}");
 endsnippet

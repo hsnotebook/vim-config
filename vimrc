@@ -41,6 +41,8 @@ set mat=2
 
 set showcmd
 
+set hidden
+
 nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
@@ -69,8 +71,6 @@ set autowrite
 
 set laststatus=2
 set statusline=%F%m%r%w\ %{fugitive#statusline()}\ [%l,%v]\ [%{&ff}]\ [%{&ft}]
-
-inoremap <c-u> <esc>viwUea
 
 function! DeleteTrailingWS()
 	execute 'normal! mz'
@@ -114,7 +114,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/target/*,*/node_modules/*
 let g:ctrlp_clear_cache_on_exit = 0
 
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
 Plug 'tpope/vim-fugitive'
@@ -224,13 +224,10 @@ endfunction
 set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
 
-" eclim
-augroup java
-	au!
-	au FileType java nnoremap <buffer> <leader>o :call eclim#java#import#OrganizeImports()<cr>
-	au FileType java nnoremap <buffer> <leader>i :call eclim#java#correct#Correct()<cr>
-	au FileType java inoremap <buffer> <c-d> <c-x><c-u>
-augroup END
+" java
+Plug 'artur-shaik/vim-javacomplete2'
+au FileType java setlocal omnifunc=javacomplete#Complete
+nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
 Plug 'brookhong/cscope.vim'
 nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
