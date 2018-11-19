@@ -20,6 +20,8 @@ if (has("gui"))
 	set autoread
 endif
 
+set directory=/tmp
+
 filetype plugin indent on
 
 nnoremap <C-h> <C-w>h
