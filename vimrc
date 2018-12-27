@@ -38,6 +38,8 @@ nnoremap <leader>m :on<cr>
 
 colorscheme wombat
 
+nnoremap gV `[v`]
+
 set showmatch
 set mat=2
 
@@ -167,6 +169,24 @@ Plug 'gcmt/taboo.vim'
 
 Plug 'jiangmiao/auto-pairs'
 
+function! SetConnectUrlVar()
+	let bottom = getline(line('$'))
+	if bottom =~ 'connectUrl'
+		let connectUrl = split(bottom)[2]
+		if !exists('w:db')
+			echom ''
+			let w:db = connectUrl
+		endif
+	endif
+endfunction
+Plug 'tpope/vim-dadbod'
+augroup db
+	au!
+	au filetype sql vnoremap <cr> :DB<cr>
+	au BufEnter *.sql :call SetConnectUrlVar()
+augroup END
+
+
 Plug 'aklt/plantuml-syntax'
 let g:plantuml_executable_script="java -jar /home/hs/bin/plantuml.jar -charset UTF-8"
 
@@ -192,6 +212,8 @@ let wiki.nested_syntaxes = {
 let g:vimwiki_list = [wiki]
 let g:vimwiki_html_header_numbering = 1
 au Filetype vimwiki setlocal textwidth=80
+
+nnoremap <leader>td :VimwikiToggleListItem<cr>
 
 " file:xxx::lineNum to unnamed register
 function! VimwikiStoreLink()
@@ -226,10 +248,20 @@ endfunction
 set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
 
+" eclim
+augroup java
+       au!
+       au FileType java nnoremap <buffer> <leader>o :call eclim#java#import#OrganizeImports()<cr>
+       au FileType java nnoremap <buffer> <leader>i :call eclim#java#correct#Correct()<cr>
+       au FileType java nnoremap <buffer> gd :JavaSearch -x declarations<cr>
+       au FileType java nnoremap <buffer> gi :JavaSearch -x implementors<cr>
+       au FileType java inoremap <buffer> <c-d> <c-x><c-u>
+augroup END
+
 " java
-Plug 'artur-shaik/vim-javacomplete2'
-au FileType java setlocal omnifunc=javacomplete#Complete
-nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" Plug 'artur-shaik/vim-javacomplete2'
+" au FileType java setlocal omnifunc=javacomplete#Complete
+" nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
 Plug 'brookhong/cscope.vim'
 nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>

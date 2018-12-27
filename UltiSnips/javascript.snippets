@@ -23,7 +23,11 @@ if (${1:condition}) {
 endsnippet
 
 snippet cl
-console.log(${1:thing});
+console.log(${1:thing})
+endsnippet
+
+snippet ce
+console.error(${1:thing})
 endsnippet
 
 snippet require "require function" b
@@ -50,13 +54,4 @@ class ${1:name} extends React.Component {
 		);
 	}
 }
-endsnippet
-
-snippet vue "a vue variable" b
-var ${1:varName} = new Vue({
-	el: '#${2:id}',
-	data: {
-		${3}
-	}
-});
 endsnippet
