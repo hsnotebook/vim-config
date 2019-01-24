@@ -1,3 +1,32 @@
+global !p
+import os
+import string
+def package():
+	filepath = os.path.dirname(path)
+	try:
+		i = 1
+		pathbase = 'src' + os.sep + 'main' + os.sep + 'java' + os.sep + ''
+		index = filepath.index(pathbase)
+		length = len(pathbase)
+	except ValueError as e:
+		i = 3
+		pathbase = 'src' + os.sep + 'test' + os.sep + 'java' + os.sep + ''
+		index = filepath.index(pathbase)
+		length = len(pathbase)
+	package = filepath[index+length:].replace(os.sep, '.')
+	return package
+
+def resultMapId(mapperName):
+	entityName = mapperName.replace("Mapper", "")
+	return entityName[:1].lower() + entityName[1:] + "ResultMap"
+
+def entityType(mapperName):
+	entityName = mapperName.replace("Mapper", "")
+	packageName = package()
+	packageName = packageName.replace("mapper", "entity")
+	return packageName + "." + entityName
+endglobal
+
 snippet xml
 <?xml version="1.0" encoding="UTF-8"?>
 endsnippet
@@ -22,28 +51,26 @@ snippet mapper
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${1:package}.`!v expand('%:t:r')`">
+<mapper namespace="`!p snip.rv = package()`.`!v expand('%:t:r')`">
 
 </mapper>
 endsnippet
-
-snippet blueprint
-<?xml version="1.0" encoding="UTF-8"?>
-<blueprint
-	xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
-
-	$0
-
-</blueprint>
+snippet resultmap
+<resultMap id="`!p snip.rv = resultMapId(snip.basename)`" type="`!p snip.rv = entityType(snip.basename)`">
+</resultMap>
 endsnippet
 
-snippet camel
-<camelContext xmlns="http://camel.apache.org/schema/blueprint">
-	<route>
-		$0
-	</route>
-</camelContext>
+snippet select
+<select id="${1}" resultMap="${2}">
+</select>
+endsnippet
+
+snippet insert
+<insert id="${1}">
+</insert>
+endsnippet
+
+snippet update
+<update id="${1}">
+</update>
 endsnippet
