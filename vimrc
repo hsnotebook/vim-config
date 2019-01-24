@@ -197,6 +197,7 @@ augroup plantuml_refresh
 augroup END
 
 Plug 'vimwiki/vimwiki'
+let g:vimwiki_folding='expr'
 let wiki = {}
 let wiki.path = '~/vimwiki/'
 let wiki.auto_toc=1
@@ -222,27 +223,30 @@ endfunction
 command! StoreLink :call VimwikiStoreLink()
 
 function! VimwikiLinkHandler(link)
-	try
 		let pageNum = matchstr(a:link, '::\zs\d\+')
-		let file = matchstr(a:link, '^.*:\zs.*\ze::')
-		let fileCmdOutput = system('file '.file)
+		let fileName = matchstr(a:link, '^.*:\zs.*\ze\(::\)\?')
+
+		let firstColonIndex = match(a:link, ':')
+		let fileType = strpart(a:link, 0, firstColonIndex)
+
 		if pageNum ==? ""
-			pageNum = 1
+			let pageNum = 1
 		endif
-		if matchstr(fileCmdOutput, '\zsPDF\ze') ==? 'PDF'
+
+		if fileType == 'pdf'
 			let opener = '/usr/bin/zathura'
-			call system(opener.' -P '.pageNum.' '.file.' &')
+			call system(opener . ' -P ' . pageNum . ' ' . fileName . ' &')
 			return 1
-		elseif matchstr(fileCmdOutput, '\zstext\ze') ==? 'text'
-			execute 'edit +'.pageNum.' '.file
+		elseif fileType == 'file'
+			execute 'edit +' . pageNum . ' ' . fileName
+			return 1
+		elseif fileType == 'uml'
+			let opener = '/home/hs/software/Umlet/umlet.sh'
+			call system(opener . ' ' . fileName . ' &')
 			return 1
 		else
 			return 0
 		endif
-	catch
-		echom "This can happen for a variety of reasons ..."
-	endtry
-	return 0
 endfunction
 
 set sessionoptions+=globals
