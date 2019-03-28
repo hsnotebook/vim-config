@@ -106,6 +106,11 @@ packadd! matchit
 set grepprg=ag\ --nogroup\ --nocolor
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+augroup autoquickfix
+	autocmd!
+	autocmd QuickFixCmdPost [^l]* cwindow
+	autocmd QuickFixCmdPost l*    lwindow
+augroup END
 
 Plug 'romainl/vim-cool'
 
@@ -161,9 +166,9 @@ map <Plug>(easymotion-prefix)h <Plug>(easymotion-linebackward)
 Plug 'vim-scripts/fcitx.vim'
 set ttimeoutlen=100
 
-Plug 'junegunn/vim-easy-align'
-xnoremap ga <Plug>(EasyAlign)
-nnoremap ga <Plug>(EasyAlign)
+" Plug 'junegunn/vim-easy-align'
+" xnoremap ga <Plug>(EasyAlign)
+" nnoremap ga <Plug>(EasyAlign)
 
 Plug 'gcmt/taboo.vim'
 
@@ -179,6 +184,7 @@ function! SetConnectUrlVar()
 		endif
 	endif
 endfunction
+
 Plug 'tpope/vim-dadbod'
 augroup db
 	au!
@@ -186,18 +192,8 @@ augroup db
 	au BufEnter *.sql :call SetConnectUrlVar()
 augroup END
 
-
-Plug 'aklt/plantuml-syntax'
-let g:plantuml_executable_script="java -jar /home/hs/bin/plantuml.jar -charset UTF-8"
-
-augroup plantuml_refresh
-	au!
-	au filetype plantuml nnoremap <f5> :w<cr>:silent make<cr>
-	au filetype plantuml inoremap <f5> <esc>:w<cr>:silent make<cr>
-augroup END
-
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_folding='expr'
+" let g:vimwiki_folding='expr'
 let wiki = {}
 let wiki.path = '~/vimwiki/'
 let wiki.auto_toc=1
@@ -223,12 +219,20 @@ endfunction
 command! StoreLink :call VimwikiStoreLink()
 
 function! VimwikiLinkHandler(link)
-		let pageNum = matchstr(a:link, '::\zs\d\+')
-		let fileName = matchstr(a:link, '^.*:\zs.*\ze\(::\)\?')
 
 		let firstColonIndex = match(a:link, ':')
 		let fileType = strpart(a:link, 0, firstColonIndex)
 
+		let numSeperatorIndex = match(a:link, '::')
+		if numSeperatorIndex == -1
+			let fileNameLength = strlen(a:link) - firstColonIndex
+		else
+			let fileNameLength = numSeperatorIndex-firstColonIndex-1
+		endif
+
+		let fileName = strpart(a:link, firstColonIndex+1, fileNameLength)
+
+		let pageNum = matchstr(a:link, '::\zs\d\+')
 		if pageNum ==? ""
 			let pageNum = 1
 		endif
@@ -238,6 +242,7 @@ function! VimwikiLinkHandler(link)
 			call system(opener . ' -P ' . pageNum . ' ' . fileName . ' &')
 			return 1
 		elseif fileType == 'file'
+			" echom "execute 'edit +' . pageNum . ' ' . fileName"
 			execute 'edit +' . pageNum . ' ' . fileName
 			return 1
 		elseif fileType == 'uml'
@@ -253,6 +258,7 @@ set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
 
 " eclim
+let g:EclimLoggingDisabled=1
 augroup java
        au!
        au FileType java nnoremap <buffer> <leader>o :call eclim#java#import#OrganizeImports()<cr>
@@ -262,30 +268,5 @@ augroup java
        au FileType java inoremap <buffer> <c-d> <c-x><c-u>
 augroup END
 
-" java
-" Plug 'artur-shaik/vim-javacomplete2'
-" au FileType java setlocal omnifunc=javacomplete#Complete
-" nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-
-Plug 'brookhong/cscope.vim'
-nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
-nnoremap <leader>l :call ToggleLocationList()<CR>
-
-" s: Find this C symbol
-nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
-" g: Find this definition
-nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
-" d: Find functions called by this function
-nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
-" c: Find functions calling this function
-nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
-" t: Find this text string
-nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
-" e: Find this egrep pattern
-" nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
-" f: Find this file
-" nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
-" i: Find files #including this file
-nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
 call plug#end()

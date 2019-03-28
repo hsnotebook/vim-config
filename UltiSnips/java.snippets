@@ -55,14 +55,14 @@ snippet class "normar class" b
 package `!p snip.rv = package()`;
 
 public class `!v expand('%:t:r')` {
-
-	${1:// code}
-
+	${0}
 }
 endsnippet
 
 snippet testboot "spring boot test" b
 package `!p snip.rv = package()`;
+
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
