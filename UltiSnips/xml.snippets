@@ -55,9 +55,14 @@ snippet mapper
 
 </mapper>
 endsnippet
-snippet resultmap
+
+snippet map
 <resultMap id="`!p snip.rv = resultMapId(snip.basename)`" type="`!p snip.rv = entityType(snip.basename)`">
 </resultMap>
+endsnippet
+
+snippet as "association" b
+<association property="${1}" resultMap="${2}" columnPrefix="${3}"/>
 endsnippet
 
 snippet select
@@ -73,4 +78,20 @@ endsnippet
 snippet update
 <update id="${1}">
 </update>
+endsnippet
+
+snippet delete
+<delete id="${1}">
+</delete>
+endsnippet
+
+snippet sql
+<sql id="${1}">
+</sql>
+endsnippet
+
+snippet inc
+<include refid="${1}">
+	<property name="${2}" value="${3}" />
+</include>
 endsnippet

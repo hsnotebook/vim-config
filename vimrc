@@ -114,9 +114,9 @@ augroup END
 
 Plug 'romainl/vim-cool'
 
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-nnoremap <leader>fe :NERDTreeToggle<cr>
-nnoremap <leader>ff :NERDTreeFind<cr>
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" nnoremap <leader>fe :NERDTreeToggle<cr>
+" nnoremap <leader>ff :NERDTreeFind<cr>
 
 Plug 'kien/ctrlp.vim'
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/target/*,*/node_modules/*
@@ -166,96 +166,21 @@ map <Plug>(easymotion-prefix)h <Plug>(easymotion-linebackward)
 Plug 'vim-scripts/fcitx.vim'
 set ttimeoutlen=100
 
-" Plug 'junegunn/vim-easy-align'
-" xnoremap ga <Plug>(EasyAlign)
-" nnoremap ga <Plug>(EasyAlign)
-
 Plug 'gcmt/taboo.vim'
 
 Plug 'jiangmiao/auto-pairs'
 
-function! SetConnectUrlVar()
-	let bottom = getline(line('$'))
-	if bottom =~ 'connectUrl'
-		let connectUrl = split(bottom)[2]
-		if !exists('w:db')
-			echom ''
-			let w:db = connectUrl
-		endif
-	endif
-endfunction
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_conceal = 2
 
-Plug 'tpope/vim-dadbod'
-augroup db
-	au!
-	au filetype sql vnoremap <cr> :DB<cr>
-	au BufEnter *.sql :call SetConnectUrlVar()
-augroup END
-
-Plug 'vimwiki/vimwiki'
-" let g:vimwiki_folding='expr'
-let wiki = {}
-let wiki.path = '~/vimwiki/'
-let wiki.auto_toc=1
-let wiki.nested_syntaxes = {
-			\ 'python': 'python',
-			\ 'vimL': 'vim',
-			\ 'bash': 'bash',
-			\ 'java': 'java',
-			\ 'json': 'json',
-			\ 'xml': 'xml',
-			\ 'plantuml': 'plantuml',
-			\ 'perl': 'perl'}
-let g:vimwiki_list = [wiki]
-let g:vimwiki_html_header_numbering = 1
-au Filetype vimwiki setlocal textwidth=80
-
-nnoremap <leader>td :VimwikiToggleListItem<cr>
-
-" file:xxx::lineNum to unnamed register
-function! VimwikiStoreLink()
-	let @" = 'file:'.expand("%:p").'::'.line('.')
-endfunction
-command! StoreLink :call VimwikiStoreLink()
-
-function! VimwikiLinkHandler(link)
-
-		let firstColonIndex = match(a:link, ':')
-		let fileType = strpart(a:link, 0, firstColonIndex)
-
-		let numSeperatorIndex = match(a:link, '::')
-		if numSeperatorIndex == -1
-			let fileNameLength = strlen(a:link) - firstColonIndex
-		else
-			let fileNameLength = numSeperatorIndex-firstColonIndex-1
-		endif
-
-		let fileName = strpart(a:link, firstColonIndex+1, fileNameLength)
-
-		let pageNum = matchstr(a:link, '::\zs\d\+')
-		if pageNum ==? ""
-			let pageNum = 1
-		endif
-
-		if fileType == 'pdf'
-			let opener = '/usr/bin/zathura'
-			call system(opener . ' -P ' . pageNum . ' ' . fileName . ' &')
-			return 1
-		elseif fileType == 'file'
-			" echom "execute 'edit +' . pageNum . ' ' . fileName"
-			execute 'edit +' . pageNum . ' ' . fileName
-			return 1
-		elseif fileType == 'uml'
-			let opener = '/home/hs/software/Umlet/umlet.sh'
-			call system(opener . ' ' . fileName . ' &')
-			return 1
-		else
-			return 0
-		endif
-endfunction
+nnoremap <leader>ww :e ~/wiki/index.md<cr>
 
 set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
+
+Plug 'vim-scripts/DrawIt'
 
 " eclim
 let g:EclimLoggingDisabled=1
@@ -267,6 +192,5 @@ augroup java
        au FileType java nnoremap <buffer> gi :JavaSearch -x implementors<cr>
        au FileType java inoremap <buffer> <c-d> <c-x><c-u>
 augroup END
-
 
 call plug#end()

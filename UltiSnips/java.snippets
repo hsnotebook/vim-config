@@ -90,11 +90,9 @@ endsnippet
 snippet controller "controller" b
 package `!p snip.rv = package()`;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("${1:url}")
+@RestController
 public class `!v expand('%:t:r')` {
 
 	${2:// code}
@@ -142,6 +140,17 @@ public interface `!p snip.rv = fn.replace(".java","")` extends JpaRepository<`!p
 }
 endsnippet
 
+snippet mapper "mybatis mapper" b
+package `!p snip.rv = package()`;
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface `!v expand('%:t:r')` {
+
+}
+endsnippet
+
 ################################
 # method
 snippet test "inset @Test method" b
@@ -171,12 +180,23 @@ snippet rq "request param" w
 @RequestParam
 endsnippet
 
-snippet rb "response body" b
-@ResponseBody
+snippet rb "request body" i
+@RequestBody
 endsnippet
 
-snippet webmethod "web method" b
-@RequestMapping(${1:"url"})${2}
+snippet pv "path variable" i
+@PathVariable
+endsnippet
+
+snippet gm "get web method" b
+@GetMapping(${1:"url"})${2}
+public ${3:String} ${4:method}(${5:param}) {
+	${6:// code}
+}
+endsnippet
+
+snippet pm "post web method" b
+@PostMapping(${1:"url"})${2}
 public ${3:String} ${4:method}(${5:param}) {
 	${6:// code}
 }
