@@ -174,6 +174,14 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_conceal = 2
+let g:vim_markdown_fenced_languages = ['bash=sh', 'viml=vim', 'sql=sql']
+
+function! ChangeHeaderFromWikiToMarkdown()
+	let header = getline('.')
+	let header = substitute(header, ' =*$', '', 'g')
+	let header = substitute(header, '=', '#', 'g')
+	call setline('.', header)
+endfunction
 
 nnoremap <leader>ww :e ~/wiki/index.md<cr>
 
