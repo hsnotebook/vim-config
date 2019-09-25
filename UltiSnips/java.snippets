@@ -117,10 +117,11 @@ snippet entity "entity" b
 package `!p snip.rv = package()`;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "${1:name}")
+import lombok.Data;
+
+@Data
+@Entity(name = "${1:name}")
 public class `!v expand('%:t:r')` {
 
 	${2:// code}
