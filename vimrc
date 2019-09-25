@@ -35,6 +35,7 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>wq :wq<cr>
 nnoremap <leader>m :on<cr>
+nnoremap <leader>e :e!<cr>
 
 colorscheme wombat
 
@@ -56,6 +57,8 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 inoremap <up> <nop>
 inoremap <down> <nop>
+
+inoremap <C-l> <esc>b~ea
 
 set tabstop=4
 set shiftwidth=4
@@ -114,13 +117,14 @@ augroup END
 
 Plug 'romainl/vim-cool'
 
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" nnoremap <leader>fe :NERDTreeToggle<cr>
-" nnoremap <leader>ff :NERDTreeFind<cr>
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+nnoremap <leader>fe :NERDTreeToggle<cr>
+nnoremap <leader>ff :NERDTreeFind<cr>
 
 Plug 'kien/ctrlp.vim'
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/target/*,*/node_modules/*
 let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_root_markers = ['.root']
 
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
@@ -170,34 +174,52 @@ Plug 'gcmt/taboo.vim'
 
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_toc_autofit = 1
-let g:vim_markdown_conceal = 2
-let g:vim_markdown_fenced_languages = ['bash=sh', 'viml=vim', 'sql=sql']
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+nnoremap <leader>tt :VimwikiToggleListItem<cr>
 
-function! ChangeHeaderFromWikiToMarkdown()
-	let header = getline('.')
-	let header = substitute(header, ' =*$', '', 'g')
-	let header = substitute(header, '=', '#', 'g')
-	call setline('.', header)
-endfunction
+" Plug 'godlygeek/tabular'
+" Plug 'plasticboy/vim-markdown'
+" let g:vim_markdown_toc_autofit = 1
+" let g:vim_markdown_conceal = 2
+" let g:vim_markdown_fenced_languages = ['bash=sh', 'viml=vim', 'sql=sql']
+" let g:vim_markdown_folding_disabled = 1
 
-nnoremap <leader>ww :e ~/wiki/index.md<cr>
+" function! ChangeHeaderFromWikiToMarkdown()
+" 	let header = getline('.')
+" 	let header = substitute(header, ' =*$', '', 'g')
+" 	let header = substitute(header, '=', '#', 'g')
+" 	call setline('.', header)
+" endfunction
+
+" nnoremap <leader>ww :e ~/wiki/index.md<cr>
 
 set sessionoptions+=globals
 Plug 'tpope/vim-obsession'
 
 Plug 'vim-scripts/DrawIt'
 
-" eclim
-let g:EclimLoggingDisabled=1
+Plug 'ycm-core/YouCompleteMe'
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+" java
+" let g:EclimLoggingDisabled=1
+" augroup java
+"        au!
+"        au FileType java nnoremap <buffer> <leader>o :call eclim#java#import#OrganizeImports()<cr>
+"        au FileType java nnoremap <buffer> <leader>i :call eclim#java#correct#Correct()<cr>
+"        au FileType java nnoremap <buffer> gd :JavaSearch -x declarations<cr>
+"        au FileType java nnoremap <buffer> gi :JavaSearch -x implementors<cr>
+"        au FileType java inoremap <buffer> <c-d> <c-x><c-u>
+" augroup END
 augroup java
        au!
-       au FileType java nnoremap <buffer> <leader>o :call eclim#java#import#OrganizeImports()<cr>
-       au FileType java nnoremap <buffer> <leader>i :call eclim#java#correct#Correct()<cr>
-       au FileType java nnoremap <buffer> gd :JavaSearch -x declarations<cr>
-       au FileType java nnoremap <buffer> gi :JavaSearch -x implementors<cr>
+       au FileType java nnoremap <buffer> <leader>o :YcmCompleter OrganizeImports<cr>
+       au FileType java nnoremap <buffer> <leader>i :YcmCompleter FixIt<cr>
+       au FileType java nnoremap <buffer> gd :YcmCompleter GoToDeclaration<cr>
+       au FileType java nnoremap <buffer> gi :YcmCompleter GoToDefinition<cr>
        au FileType java inoremap <buffer> <c-d> <c-x><c-u>
 augroup END
 
